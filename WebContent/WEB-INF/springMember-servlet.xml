@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+	<context:annotation-config></context:annotation-config>
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="WEB-INF/member" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"
+			value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url"
+			value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="username" value="aws01" />
+		<property name="password" value="aws01" />
+	</bean>
+	<bean id="jdbcTemplate"
+		class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="memberDAO" class="member.dao.MemberDAOImpl">
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+	</bean>
+	<bean class = "member.controller.MemberController"/>
+<!-- 	<bean name = "/index_member.do" class = "member.controller.IndexMemberController">
+	</bean> 
+	<bean name = "/memberSsn.do" class= "member.controller.MemberSsnFormController">
+	</bean>
+	<bean name= "/checkMember.do" class = "member.controller.MemberCheckController">
+	<property name = "memberDAO" ref = "memberDAO"></property>
+	</bean>
+	<bean name = "/member.do" class = "member.controller.JoinMemberFormController">
+	</bean>
+	
+	<bean name = "/join_member.do" class = "member.controller.JoinMemberController">
+	<property name = "memberDAO" ref = "memberDAO"></property>
+	<property name = "commandClass" value = "member.dto.MemberDTO"/>
+	<property name = "commandName" value = "memberCmd"/>
+	</bean>
+	<bean name = "/memberAll.do" class = "member.controller.MemberListController">
+	<property name = "memberDAO" ref = "memberDAO"></property>
+	</bean>
+	<bean name = "/member_delete.do" class = "member.controller.MemberDeleteController">
+	<property name = "memberDAO" ref = "memberDAO"/>
+	</bean>
+	<bean name = "/member_edit.do" class = "member.controller.MemberEditFormController">
+	<property name = "memberDAO" ref = "memberDAO"/>
+	</bean>
+	<bean name = "/member_edit_ok.do" class = "member.controller.MemberEditController">
+	<property name = "memberDAO" ref = "memberDAO"/>
+	<property name = "commandClass" value = "member.dto.MemberDTO"/>
+	<property name = "commandName" value  ="memberCmd"/>
+	</bean>
+	<bean name = "/login.do" class = "member.controller.LoginFormController">
+	</bean>
+	<bean name = "/login_ok.do" class = "login.controller.LoginOkcontroller">
+	<property name = "memberDAO" ref = "memberDAO"/>
+	</bean>
+	<bean name = "/search.do" class = "login.controller.SearchFormController">
+	</bean>
+	<bean name = "/check.do" class ="login.controller.CheckController">
+	<property name = "memberDAO" ref = "memberDAO"/>
+	</bean>
+	<bean name = "/logout.do" class ="login.controller.LogoutController">
+	</bean>
+	<bean name = "/close.do" class= "login.controller.CloseController">
+	</bean>-->
+</beans>

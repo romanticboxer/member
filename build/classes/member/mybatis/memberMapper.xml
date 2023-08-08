@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member.mybatis.memberMapper">
+	<select id="listMember" resultType="memberDTO">
+		select * from jsp_member
+	</select>
+	<insert id="insertMember" parameterType="memberDTO">
+		insert into jsp_member
+		values(member_seq.nextval,#{name},#{id},#{passwd},#{ssn1},#{ssn2},#{email},#{hp1},#{hp2},#{hp3},sysdate)
+	</insert>
+	<delete id="deleteMember" parameterType="int">
+		delete from jsp_member
+		where no = #{no}
+	</delete>
+	<select id="getMember" parameterType="int"
+		resultType="MemberDTO">
+		select * from jsp_member where no = #{no}
+	</select>
+	<update id="updateMember" parameterType="memberDTO">
+		update jsp_member set id
+		= #{id}, passwd = #{passwd},email = #{email}, hp1 =
+		#{hp1}, hp2 =
+		#{hp2}, hp3 = #{hp3} where no = #{no}
+	</update>
+	<select id="findMember" parameterType="Map"
+		resultType="memberDTO">
+		select * from jsp_member where ${search} = #{searchString}
+	</select>
+	<select id="checkLogin" parameterType="String"
+		resultType="memberDTO">
+		select * from jsp_member where id = #{id}
+	</select>
+	<select id = "getId" parameterType = "Map" resultType= "String">
+		select * from jsp_member where name = #{name} and ssn1 = #{ssn1} and ssn2 = #{ssn2}
+	</select>
+	<select id = "getPw" parameterType = "Map" resultType= "String">
+		select * from jsp_member where name = #{name} and ssn1 = #{ssn1} and ssn2 = #{ssn2} and id = #{id}
+	</select>
+	<select id ="checkMember" parameterType = "Map" resultType = "int">
+		select name from jsp_member where ssn1 = #{ssn1} and ssn2 = #{ssn2}
+	</select>
+</mapper>
